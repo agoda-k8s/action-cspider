@@ -24,7 +24,7 @@ runs:
   image: "docker://reg-hk.agodadev.io/devops/cspider-client:latest"
   entrypoint:
     - /bin/bash
-    - c
+    - -c
     - /usr/local/bin/cspider_upload_client.py
   args:
     - "--accessToken"
