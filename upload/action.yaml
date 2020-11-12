@@ -22,7 +22,10 @@ inputs:
 runs:
   using: docker
   image: "docker://reg-hk.agodadev.io/devops/cspider-client:latest"
-  entrypoint: /usr/local/bin/cspider_upload_client.py
+  entrypoint:
+    - /bin/bash
+    - c
+    - /usr/local/bin/cspider_upload_client.py
   args:
     - "--accessToken"
     - ${{ inputs.token }}
