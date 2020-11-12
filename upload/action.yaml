@@ -1,0 +1,36 @@
+name: cspider-upload
+description: Upload a package to cspider
+
+inputs:
+  app:
+    description: App name
+    required: true
+  comment:
+    description: A comment to include with the file upload
+    required: false
+    default: ""
+  package:
+    description: Package and its path
+    required: true
+  token:
+    description: Access Token for CSpider
+    required: true
+  url:
+    description: URL of cspider to communicate with
+    required: true
+
+runs:
+  using: docker
+  image: "docker://reg-hk.agodadev.io/devops/cspider-client:latest"
+  entrypoint: /usr/local/bin/cspider_upload_client.py
+  args:
+    - "--accessToken"
+    - ${{ inputs.token }}
+    - "--url"
+    - ${{ inputs.url }}
+    - "--app"
+    - ${{ inputs.app }}
+    - "--file"
+    - ${{ inputs.package }}
+    - "--comment"
+    - ${{ inputs.comment }}
