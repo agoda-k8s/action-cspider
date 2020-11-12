@@ -1,0 +1,50 @@
+name: cspider-deploy
+description: Deploy a package via cspider
+
+inputs:
+  app:
+    description: App name
+    required: true
+  multiplan:
+    description: The multiplan to deploy
+    required: false
+    default: ""
+  plan:
+    description: The plan to deploy
+    required: false
+    default: ""
+  role:
+    description: The role to deploy
+    required: false
+    default: ""
+  token:
+    description: Access Token for CSpider
+    required: true
+  url:
+    description: URL of cspider to communicate with
+    required: true
+  version:
+    description: Version of the app to deploy
+    required: false
+    default: ""
+
+runs:
+  using: docker
+  image: "docker://reg-hk.agodadev.io/devops/cspider-client:latest"
+  args:
+    - /usr/local/bin/cspider_multi_plan_client.py
+    - deploy
+    - "--accessToken"
+    - ${{ inputs.token }}
+    - "--url"
+    - ${{ inputs.url }}
+    - "--app"
+    - ${{ inputs.app }}
+    - "--mulid"
+    - ${{ inputs.multiplan }}
+    - "--pid"
+    - ${{ inputs.plan }}
+    - "--role"
+    - ${{ inputs.role }}
+    - "--version"
+    - ${{ inputs.version }}
